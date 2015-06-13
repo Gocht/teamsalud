@@ -1,0 +1,32 @@
+.opciones {
+	margin-top: 2rem;
+}
+
+.formulario select {
+	border-radius: 6px;
+	font-size: 18px;
+	padding: 6px;
+}
+.formulario input {
+	border-radius: 6px;
+	font-size: 18px;
+	padding: 18px;
+}
+.nosintoma {
+	border: 1px solid #006699;
+	border-radius: 6px;
+	color: #006699;
+	font-size: 18px;
+	text-align: center;
+	padding: 20px;
+	margin-top: 10px;
+}
+.active a {
+	background: #006699;
+}
+.nav-bar .active a:hover {
+	color: #FFFFFF;
+}
+.acudir {
+	color: #cc3300;
+}
