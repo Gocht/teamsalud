@@ -40,7 +40,6 @@ class CondicionSignoAlerta(models.Model):
         'TipoCategoria',
         related_name='tipo_categoria_set'
     )
-    extra = models.CharField(max_length=100)
 
 
 __all__ = [
