@@ -55,3 +55,6 @@ class CondicionSignoAlerta(models.Model):
         app_label = 'loc'
 
 
+__all__ = [
+    'TipoCategoria'
+]
