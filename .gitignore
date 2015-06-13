@@ -55,3 +55,13 @@ docs/_build/
 
 # PyBuilder
 target/
+
+#db
+teamsalud/*.sqlite3
+
+##
+*.iml
+
+##
+.idea/
+.idea/*
