@@ -2,14 +2,10 @@ from django.db import models
 
 # Create your models here.
 
-
 class TipoCategoria(models.Model):
     codigo=models.CharField(
         max_length=10
     )
-
-    class Meta:
-        app_label = 'loc'
 
 
 class Condicion(models.Model):
@@ -20,9 +16,6 @@ class Condicion(models.Model):
         max_length=300
     )
 
-    class Meta:
-        app_label = 'loc'
-
 
 class SignoAlerta(models.Model):
     codigo=models.CharField(
@@ -31,9 +24,6 @@ class SignoAlerta(models.Model):
     descripcion=models.CharField(
         max_length=300
     )
-
-    class Meta:
-        app_label = 'loc'
 
 
 class CondicionSignoAlerta(models.Model):
@@ -51,7 +41,10 @@ class CondicionSignoAlerta(models.Model):
         related_name='tipo_categoria_set'
     )
 
-    class Meta:
-        app_label = 'loc'
 
-
+__all__ = [
+    'TipoCategoria',
+    'Condicion',
+    'SignoAlerta',
+    'CondicionSignoAlerta',
+]
