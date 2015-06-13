@@ -1,0 +1,10 @@
+applications:
+- disk_quota: 1024M
+  host: Hackaton
+  name: Hackaton
+  path: .
+  command: sh run.sh
+  buildpack: https://github.com/cloudfoundry/python-buildpack
+  domain: mybluemix.net
+  instances: 1
+  memory: 128M
