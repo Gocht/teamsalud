@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+        <ul>
+            {% for log in logs %}
+                <li>Condición: {{ log.condicion }}</li>
+                <li>Signo de alerta: {{ log.signo_alerta }}</li>
+                <li>Ubigeo: {{ log.ubigeo }}</li>
+                <li>N° veces: {{ log.cantidad }}</li>
+            {% endfor %}
+        </ul>
+
+{% endblock %}

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Condicion, SignoAlerta, CondicionSignoAlerta, TipoCategoria
+from .models import Condicion, SignoAlerta, CondicionSignoAlerta, TipoCategoria, RegistroBusquedas
 
 # Register your models here.
 
@@ -18,8 +18,12 @@ class CondicionSignoAlertaAdmin(admin.ModelAdmin):
 class TipoCategoriaAdmin(admin.ModelAdmin):
     pass
 
+class RegistroBusquedasAdmin(admin.ModelAdmin):
+    pass
+
 
 admin.site.register(Condicion, CondicionAdmin)
 admin.site.register(SignoAlerta, SignoAlertaAdmin)
 admin.site.register(CondicionSignoAlerta, CondicionSignoAlertaAdmin)
 admin.site.register(TipoCategoria, TipoCategoriaAdmin)
+admin.site.register(RegistroBusquedas, RegistroBusquedasAdmin)

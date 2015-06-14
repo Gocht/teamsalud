@@ -2,6 +2,7 @@ import requests
 import json
 
 from django.contrib.gis.geometry.regex import json_regex
+from django.db import IntegrityError
 from django.shortcuts import render
 from django.views.generic import TemplateView, View
 from models import Condicion, CondicionSignoAlerta, SignoAlerta, TipoCategoria, RegistroBusquedas
@@ -64,9 +65,16 @@ class ResultView(TemplateView):
 
     def register_busqueda(self, perfil):
         busqueda = RegistroBusquedas()
-        busqueda.busqueda_id = perfil.id
-        busqueda.distrito = self.district_id
-        busqueda.save()
+        try:
+            busqueda.busqueda_id = perfil.id
+            busqueda.distrito = self.district_id
+            busqueda.count = 1
+            busqueda.save()
+        except IntegrityError:
+            registro = RegistroBusquedas.objects.get(busqueda=perfil.id, distrito=self.district_id)
+            registro.count = registro.count +1
+            registro.save()
+        return True
 
     def get_result(self):
         data = []
@@ -94,11 +102,47 @@ class ResultView(TemplateView):
             })
         return data
 
+    def get_location(self, results):
+        data = []
+        for result in results:
+            data.append({
+                'lat':result.get('latitud'),
+                'lng':result.get('longitud')
+            })
+        return data
+
     def get_context_data(self, **kwargs):
         context = super(ResultView, self).get_context_data(**kwargs)
         self.condicion_id = 1
         self.signo_alerta_id = 1
-        self.district_id = 70101
-        context['results'] = self.get_result()
+        self.district_id = self.kwargs['ubigeo']
+        results = self.get_result()
+        context['results'] = results
+        context['location'] = json.dumps(self.get_location(results))
+        return context
+
+
+class LogView(TemplateView):
+    template_name = 'log.html'
+
+    def get_logs(self):
+        data = []
+        busquedas = RegistroBusquedas.objects.all()
+
+        for busqueda in busquedas:
+            data.append({
+                'condicion_id': busqueda.busqueda.condicion.id,
+                'condicion': busqueda.busqueda.condicion.nombre,
+                'signo__alerta_id': busqueda.busqueda.signo_alerta.id,
+                'signo_alerta': busqueda.busqueda.signo_alerta.descripcion,
+                'ubigeo': busqueda.distrito,
+                'cantidad': busqueda.count
+            })
+
+        return data
+
+    def get_context_data(self, **kwargs):
+        context = super(LogView, self).get_context_data(**kwargs)
+        context['logs'] = self.get_logs()
         return context
 

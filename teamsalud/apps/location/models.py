@@ -58,6 +58,10 @@ class RegistroBusquedas(models.Model):
     distrito = models.CharField(
         max_length=50
     )
+    count = models.IntegerField()
+
+    class Meta:
+        unique_together = [("busqueda", "distrito")]
 
 
 __all__ = [
