@@ -22,6 +22,7 @@
                     <input name="aver" id="tags" placeholder="ingrese su síntoma" onkeyup="look_up()">
                 </div> -->
                 <select onchange="getLocation()" id="signos">
+                    <option value="">Seleccione</option>
                     {% for signo in signos_alerta %}
                         <option value="{{signo.id}}">{{signo.descripcion}}</option>
                     {% endfor %}
