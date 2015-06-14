@@ -6,6 +6,8 @@ class TipoCategoria(models.Model):
     codigo = models.CharField(
         max_length=10
     )
+    def __unicode__(self):
+        return self.codigo
 
 
 class Condicion(models.Model):
@@ -15,6 +17,8 @@ class Condicion(models.Model):
     nombre = models.CharField(
         max_length=300
     )
+    def __unicode__(self):
+        return self.codigo
 
 
 class SignoAlerta(models.Model):
