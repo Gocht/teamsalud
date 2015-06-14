@@ -194,8 +194,8 @@ class ResultView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(ResultView, self).get_context_data(**kwargs)
-        self.condicion_id = 1
-        self.signo_alerta_id = 1
+        self.condicion_id = kwargs['condicion']
+        self.signo_alerta_id = kwargs['alerta']
         self.district_id = self.kwargs['ubigeo']
         results = self.get_result()
         context['results'] = results
