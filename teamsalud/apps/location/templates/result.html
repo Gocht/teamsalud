@@ -61,31 +61,40 @@
 
     <div class="row">
 
+        {% if results %}
         <h1>Información de los centros de salud:</h1>
         {% for result in results %}
         <article class="four columns featured_post">
 
             <h3>{{ result.nombre_establecimiento }}</h3>
 
-            <p>{{ result.direccin}}.{{ result.departamento}} - {{ result.provincia}} - {{ result.distrito}}.</p>
-            {{ result.institucion}}
-            Clasificacion: {{ result.clasificacion}}
-            Teléfono: {{ result.telfono}}
-            Horario: {{ result.horario}}
+            <p>{{ result.direccion}} </p>
+            <p>{{ result.departamento}} - {{ result.provincia}} - {{ result.distrito}}</p>
+            <p>{{ result.institucion}}</p>
+            <p>Clasificacion: {{ result.clasificacion}}</p>
+            <p>Teléfono: {{ result.telfono}}</p>
+            <p>Horario: {{ result.horario}}</p>
 
+            {% if result.servicios %}
             <ul>Servicios que brinda:
                 {% for servicio in result.servicios%}
                 <li>{{servicio.servicio}}</li>
                 {% endfor %}
             </ul>
+            {% endif %}
 
+            {% if result.especialidades %}
             <ul>Especialidades:
                 {% for especialidad in result.especialidades %}
                 <li>{{ especialidad.especialidad }}</li>
                 {% endfor %}
             </ul>
+            {% endif%}
         </article>
         {% endfor %}
+        {% else %}
+        <p>No hemos encontrado centros de salud cerca a su ubicación</p>
+        {% endif %}
     </div>
 </section>
 
