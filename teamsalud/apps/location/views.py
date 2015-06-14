@@ -9,7 +9,8 @@ from django.db import IntegrityError
 from django.shortcuts import render
 from django.core.urlresolvers import reverse
 from django.views.generic import TemplateView, View, RedirectView
-from models import Condicion, CondicionSignoAlerta, SignoAlerta, TipoCategoria, RegistroBusquedas
+from models import Condicion, CondicionSignoAlerta, SignoAlerta, TipoCategoria, RegistroBusquedas, RenaesServicios
+from models import RenaesEspecialidades, Servicios, Especialidades
 # Create your views here.
 
 
@@ -133,6 +134,26 @@ class ResultView(TemplateView):
             registro.save()
         return True
 
+    def get_servicios(self, renaes):
+        data=[]
+        servicios = RenaesServicios.objects.filter(codigo_renaes=renaes)
+        for servicio in servicios:
+            data.append({
+                'codigo_servicio': servicio.servicio.codigo,
+                'servicio': servicio.servicio.descripcion
+            })
+        return data
+
+    def get_especialidades(self, renaes):
+        data = []
+        especialidades = RenaesEspecialidades.objects.filter(codigo_renaes=renaes)
+        for especialidad in especialidades:
+            data.append({
+                'codigo_especialidad': especialidad.especialidad.codigo,
+                'especialidad': especialidad.especialidad.descripcion
+            })
+        return data
+
     def get_result(self):
         data = []
         perfil = CondicionSignoAlerta.objects.get(condicion_id=self.condicion_id, signo_alerta_id=self.signo_alerta_id)
@@ -142,9 +163,10 @@ class ResultView(TemplateView):
         results = self.get_establecimientos(categoria=categoria)
         for result in results:
             pk=pk+1
+            renaes = result['cdigo_nico']
             data.append({
                 'pk':pk,
-                'renaes': result['cdigo_nico'],
+                'renaes': renaes,
                 'institucion': result['institucin'],
                 'nombre_establecimiento': result['nombre_del_establecimiento'],
                 'latitud': result['norte'],
@@ -155,7 +177,9 @@ class ResultView(TemplateView):
                 'provincia': result['provincia'],
                 'distrito': result['distrito'],
                 'telefono': result['telfono'],
-                'horario': result['horario']
+                'horario': result['horario'],
+                'servicios': self.get_servicios(renaes),
+                'especialidades': self.get_especialidades(renaes)
             })
         return data
 
