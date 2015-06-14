@@ -111,7 +111,7 @@ class ResultView(TemplateView):
         response = requests.get(url, params=payload)
         response = response.json()
         def _filter(renaes):
-            return [renae for renae in renaes if renae['ubigeo'] == self.kwargs['ubigeo'] and renae['categoria'] == categoria and not renae['norte'] == '0']
+            return [renae for renae in renaes if renae['ubigeo'] == self.kwargs['ubigeo'] and renae['categoria'] == categoria ]
 
         if response.get('success', False):
             _list = response.get('result', {}).get('records', [])

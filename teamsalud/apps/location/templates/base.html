@@ -50,8 +50,6 @@
             <ul id="menu-header" class="nav-bar horizontal">
 
                 <li class="active"><a href="{% url 'home' %}">Inicio</a></li>
-                <li class=""><a href="#">Cuidados en la gestación</a></li>
-                <li class=""><a href="#">Qué hacer en una emergencia</a></li>
                 <li class=""><a href="{% url 'log' %}">Búsquedas realizadas</a></li>
             </ul>
 
@@ -73,13 +71,13 @@
 
 <footer>
 
-    <div class="row">
+    <div class="row footer">
 
-        <div class="twelve columns footer">
-            <a href="http://twitter.com/dieterarno" class="lsf-icon" style="font-size:16px; margin-right:15px" title="twitter">MINSA</a>
-            <a href="http://csstemplateheaven.com/csstemplateheaven" class="lsf-icon" style="font-size:16px; margin-right:15px" title="facebook">ESSALUD</a>
-            <a href="http://csstemplateheaven.com/csstemplateheaven" class="lsf-icon" style="font-size:16px; margin-right:15px" title="pinterest">MINSA</a>
-            <a href="http://twitter.com/dieterarno" class="lsf-icon" style="font-size:16px" title="instagram">Otros</a>
+        <div class="four columns minsa">
+            <a href="http://datos.minsa.gob.pe/"><img src="{{STATIC_URL}}images/minsa.png"></a>
+        </div>
+        <div class="eight columns txtminsa">
+            <a href="http://datos.minsa.gob.pe/">Con información del Repositorio de Datos del Ministerio de Salud.</a>
         </div>
 
     </div>

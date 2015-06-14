@@ -44,7 +44,7 @@
 <!-- ######################## Header ######################## -->
 
 <header>
-    <h1 class="welcome_text">Nombre del centro de salud</h1>
+    <h1 class="welcome_text">Usted debe acudir a un centro de salud</h1>
 </header>
 
 <!-- ######################## Section ######################## -->
@@ -57,53 +57,36 @@
             style="width:100%; height:375px; border:0"></iframe> -->
 </section>
 
-<section class="detalle">
-
-
+<section class="resultado">
 
     <div class="row">
 
+        <h1>Información de los centros de salud:</h1>
+        {% for result in results %}
+        <article class="four columns featured_post">
 
+            <h3>{{ result.nombre_establecimiento }}</h3>
 
-        <div class="twelve columns">
+            <p>{{ result.direccin}}.{{ result.departamento}} - {{ result.provincia}} - {{ result.distrito}}.</p>
+            {{ result.institucion}}
+            Clasificacion: {{ result.clasificacion}}
+            Teléfono: {{ result.telfono}}
+            Horario: {{ result.horario}}
 
-            <dl class="tabs three-up">
-                <dd class="active"><a href="#simple1">Detalles1</a></dd>
-                <dd><a href="#simple2">Detalles2</a></dd>
-                <dd><a href="#simple3">Detalles3</a></dd>
-            </dl>
-
-            <ul class="tabs-content">
-                {% for result in results %}
-                <li id="simple{{result.pk}}Tab">
-                    <ul>
-                        <li>Institucion: {{ result.institucion}}</li>
-                        <li>Institucion: {{ result.nombre_establecimiento}}</li>
-                        <li>Clasificacion: {{ result.clasificacion}}</li>
-                        <li>{{ result.departamento}} - {{ result.provincia}} - {{ result.distrito}}</li>
-                        <li>Direccin: {{ result.direccin}}</li>
-                        <li>Teléfono: {{ result.telfono}}</li>
-                        <li>Horario: {{ result.horario}}</li>
-                        <li>Servicios que brinda:</li>
-                            <ul>
-                                {% for servicio in result.servicios%}
-                                <li>{{servicio.servicio}}</li>
-                                {% endfor %}
-                            </ul>
-                        <li>Especialidades:</li>
-                        <ul>
-                            {% for especialidad in result.especialidades %}
-                            <li>{{ especialidad.especialidad }}</li>
-                            {% endfor %}
-                        </ul>
-                    </ul>
-                </li>
+            <ul>Servicios que brinda:
+                {% for servicio in result.servicios%}
+                <li>{{servicio.servicio}}</li>
                 {% endfor %}
             </ul>
 
-        </div>
+            <ul>Especialidades:
+                {% for especialidad in result.especialidades %}
+                <li>{{ especialidad.especialidad }}</li>
+                {% endfor %}
+            </ul>
+        </article>
+        {% endfor %}
     </div>
-
 </section>
 
 {% endblock %}
