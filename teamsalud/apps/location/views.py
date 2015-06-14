@@ -203,3 +203,25 @@ class LogView(TemplateView):
         context['logs'] = self.get_logs()
         return context
 
+
+class LogApiView(View):
+
+    def get(self, request, *args, **kwargs):
+        json_data = json.dumps(self.get_logs())
+        return HttpResponse(json_data, content_type='application/json')
+
+    def get_logs(self):
+        data = []
+        busquedas = RegistroBusquedas.objects.all()
+
+        for busqueda in busquedas:
+            data.append({
+                'condicion_id': busqueda.busqueda.condicion.id,
+                'condicion': busqueda.busqueda.condicion.nombre,
+                'signo__alerta_id': busqueda.busqueda.signo_alerta.id,
+                'signo_alerta': busqueda.busqueda.signo_alerta.descripcion,
+                'ubigeo': busqueda.distrito,
+                'cantidad': busqueda.count
+            })
+
+        return data
