@@ -21,7 +21,7 @@
                 <!-- <div id="the-basics">
                     <input name="aver" id="tags" placeholder="ingrese su síntoma" onkeyup="look_up()">
                 </div> -->
-                <select>
+                <select onchange="getLocation()" id="signos">
                     {% for signo in signos_alerta %}
                         <option value="{{signo.id}}">{{signo.descripcion}}</option>
                     {% endfor %}
@@ -58,23 +58,38 @@
 
 </section>
 
-{% endblock %}
 
-{% block script_bottom %}
-<script type="text/javascript">
+<p id="demo"></p>
 
-var look_up = function(){
-    debugger;
-};
+<script>
+var x = document.getElementById("demo");
+var latitude = undefined;
+var longitude = undefined;
 
-// $(document).ready(function() {
+function getLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition);
+    } else { 
+        x.innerHTML = "Geolocation is not supported by this browser.";
+    }
+}
 
-//     var aTags = ["ask","always", "all", "alright", "one", "foo", "blackberry", "tweet","force9", "westerners", "sport"];
-//     var as = new bsn.AutoSuggest('tags', aTags)
-//     $("#tags").autocomplete({
-//         source: aTags
-//     });
-
-// });
+function showPosition(position) {
+    // x.innerHTML = "Latitude: " + position.coords.latitude + 
+    // "<br>Longitude: " + position.coords.longitude;
+    data = {
+        'signo': $('#signos')[0].selectedOptions[0].value,
+        'latitude': position.coords.latitude,
+        'longitude': position.coords.longitude
+    }
+    
+    $.get('/go/', data, function(res){
+        window.location.href = '/result/'+res.condicion+'/'+res.alerta+'/'+res.ubigeo+'/';
+    });
+    // window.location.href('/go/?signo='+data.signo+'&latitude='+data.latitude+'&longitude='+data.longitude);
+}
 </script>
+
+
 {% endblock %}
+
