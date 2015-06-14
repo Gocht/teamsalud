@@ -1,9 +1,13 @@
 import requests
 import json
 
+from bs4 import BeautifulSoup as bs
+
+from django.http import HttpResponse
 from django.contrib.gis.geometry.regex import json_regex
 from django.shortcuts import render
-from django.views.generic import TemplateView, View
+from django.core.urlresolvers import reverse
+from django.views.generic import TemplateView, View, RedirectView
 from models import Condicion, CondicionSignoAlerta, SignoAlerta, TipoCategoria, RegistroBusquedas
 # Create your views here.
 
@@ -27,6 +31,61 @@ class HomeView(TemplateView):
         context['condiciones'] = Condicion.objects.all()
         context['signos_alerta'] = self.get_signo_alerta()
         return context
+
+
+class Intermediate(View):
+
+
+    def get(self, request, *args, **kwargs):
+        condicion = 1
+        signo = self.request.GET.get('signo', '')
+        ubigeo = self.get_ubigeo()
+
+        _dict = {'condicion':condicion, 'alerta': signo, 'ubigeo': ubigeo}
+        return HttpResponse(json.dumps(_dict), content_type='application/json')
+
+        # return reverse('result', kwargs={'condicion': condicion, 'alerta': signo, 'ubigeo': ubigeo})
+
+    def get_google_data(self):
+        url = 'http://maps.googleapis.com/maps/api/geocode/json'
+        payload = {
+            'latlng': '%s,%s' % (self.request.GET.get('latitude', ''), self.request.GET.get('longitude', '')),
+            'sensor': False
+        }
+
+        response = requests.get(url, params=payload)
+        response = response.json()
+
+        if response.get('status', '') == 'OK':
+            distrito_name = response.get('results')[0].get('address_components')[2].get('long_name')
+        else:
+            distrito_name = ''
+
+        return distrito_name
+
+    def get_ubigeo(self):
+        distrito_name = self.get_google_data()
+
+        # ubigeo = '150101'
+
+        url = 'http://webinei.inei.gob.pe:8080/sisconcode/ubigeo/listaBusquedaUbigeoPorDescripcion.htm'
+
+        payload = {
+            'versionCategoriaPK': '4-1',
+            'nivel': 4,
+            'descripcion': distrito_name,
+            'strVersion': 2015
+        }
+
+        response = requests.get(url, params=payload)
+
+        if response.status_code == 200:
+            soup = bs(response.content)
+            ubigeo = soup.find('body').find_all('table')[1].find_all('tr')[0].find_all('td')[3].text.split(' ')[0].strip()
+        else:
+            ubigeo = ''
+
+        return ubigeo
 
 
 class ApiGetSignosAlerta(View):
