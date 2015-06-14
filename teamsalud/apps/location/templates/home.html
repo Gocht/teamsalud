@@ -4,7 +4,7 @@
 <!-- ######################## Header ######################## -->
 
 <header class="formulario">
-    <h1 class="welcome_text">Nombre del proyecto</h1>
+    <h1 class="welcome_text">Atiende Alerta</h1>
 
     <div class="row opciones">
         <div class="six mobile-twelve centered columns">
@@ -126,7 +126,7 @@ function showPosition(position) {
     }
     
     $.get('/go/', data, function(res){
-        window.location.href = '/result/'+res.condicion+'/'+res.alerta+'/'+res.ubigeo+'/';
+        window.location.href = '/result/'+res.condicion+'/'+res.alerta+'/'+res.ubigeo+'/'+res.distrito_nombre+'/';
     });
     // window.location.href('/go/?signo='+data.signo+'&latitude='+data.latitude+'&longitude='+data.longitude);
 }
