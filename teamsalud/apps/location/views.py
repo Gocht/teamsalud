@@ -17,19 +17,22 @@ class HomeView(TemplateView):
 
         for signo in signos:
             data.append({
+            'id': signo.id,
             'descripcion': signo.descripcion
             })
-        return data
-
-    def get_signo_alerta2(self):
-        data = ['s','sbvhjdsbvdjhv', 'sbvhjdvdsvdv']
         return data
 
     def get_context_data(self, **kwargs):
         context = super(HomeView, self).get_context_data(**kwargs)
         context['condiciones'] = Condicion.objects.all()
-        context['signos_alerta'] = json.dumps(self.get_signo_alerta())
+        context['signos_alerta'] = self.get_signo_alerta()
         return context
+
+
+class ApiGetSignosAlerta(View):
+    def get(self, request, *args, **kwargs):
+        import pdb; pdb.set_trace()
+        mimetype = 'application/json'
 
 
 class ResultView(TemplateView):

@@ -1,19 +1,5 @@
 {% extends 'base.html' %}
 
-{% block script_bottom %}
-<script type="text/javascript">
-$(document).ready(function() {
-
-    var aTags = ["ask","always", "all", "alright", "one", "foo", "blackberry", "tweet","force9", "westerners", "sport"];
-    var as = new bsn.AutoSuggest('tags', aTags)
-    $("#tags").autocomplete({
-        source: aTags
-    });
-
-});
-</script>
-{% endblock %}
-
 {% block content %}
 <!-- ######################## Header ######################## -->
 
@@ -22,7 +8,6 @@ $(document).ready(function() {
 
     <div class="row opciones">
         <div class="six mobile-twelve centered columns">
-            {{ condiciones}}
             <label>Condición:
                 <select>
                     <option value="husker">Mujer gestante</option>
@@ -33,13 +18,17 @@ $(document).ready(function() {
     <div class="row opciones">
         <div class="six mobile-twelve centered columns">
             <label>Síntomas:
-                <div id="the-basics">
-                    <input name="aver" id="tags" placeholder="ingrese su síntoma">
-                </div>
+                <!-- <div id="the-basics">
+                    <input name="aver" id="tags" placeholder="ingrese su síntoma" onkeyup="look_up()">
+                </div> -->
+                <select>
+                    {% for signo in signos_alerta %}
+                        <option value="{{signo.id}}">{{signo.descripcion}}</option>
+                    {% endfor %}
+                </select>
             </label>
         </div>
     </div>
-    {{ signos_alerta}}
 </header>
 
 <!-- ######################## Section ######################## -->
@@ -69,4 +58,23 @@ $(document).ready(function() {
 
 </section>
 
+{% endblock %}
+
+{% block script_bottom %}
+<script type="text/javascript">
+
+var look_up = function(){
+    debugger;
+};
+
+// $(document).ready(function() {
+
+//     var aTags = ["ask","always", "all", "alright", "one", "foo", "blackberry", "tweet","force9", "westerners", "sport"];
+//     var as = new bsn.AutoSuggest('tags', aTags)
+//     $("#tags").autocomplete({
+//         source: aTags
+//     });
+
+// });
+</script>
 {% endblock %}
