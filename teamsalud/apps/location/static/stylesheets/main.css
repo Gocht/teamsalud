@@ -11,9 +11,9 @@
     src: url('LigatureSymbols-2.05.eot');
     src: url('LigatureSymbols-2.05.eot?#iefix') format('embedded-opentype'),
          url('LigatureSymbols-2.05.woff') format('woff'),
-         url('LigatureSymbols-2.05.ttf') format('truetype'),
+         url('LigatureSymbols-2.07.ttf') format('truetype'),
          url('LigatureSymbols-2.05.svg#LigatureSymbols') format('svg');
-    src: url('LigatureSymbols-2.05.ttf') format('truetype');
+    src: url('LigatureSymbols-2.07.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
 }

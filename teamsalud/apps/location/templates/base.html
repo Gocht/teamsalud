@@ -1,3 +1,5 @@
+{% load i18n %}
+
 <!DOCTYPE html>
 <!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
 <!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
@@ -13,14 +15,14 @@
     <title>Nombre del proyecto</title>
 
     <!-- Included CSS Files (Compressed) -->
-    <link rel="stylesheet" href="{{STATIC_URL}}/stylesheets/foundation.min.css">
+    <link rel="stylesheet" href="{{STATIC_URL}}stylesheets/foundation.min.css">
     <link rel="stylesheet" href="{{STATIC_URL}}stylesheets/main.css">
-    <link rel="stylesheet" href="stylesheets/app.css">
-    <link rel="stylesheet" href="stylesheets/custom.css">
+    <link rel="stylesheet" href="{{STATIC_URL}}stylesheets/app.css">
+    <link rel="stylesheet" href="{{STATIC_URL}}stylesheets/custom.css">
 
-    <script src="javascripts/modernizr.foundation.js"></script>
+    <script src="{{STATIC_URL}}javascripts/modernizr.foundation.js"></script>
 
-    <link rel="stylesheet" href="ligature.css">
+    <link rel="{{STATIC_URL}}stylesheet" href="ligature.css">
 
     <!-- Google fonts -->
     <link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300|Playfair+Display:400italic' rel='stylesheet' type='text/css' />
@@ -65,58 +67,9 @@
 
 </nav>
 
-
-<!-- ######################## Header ######################## -->
-
-<header class="formulario">
-    <h1 class="welcome_text">Nombre del proyecto</h1>
-
-    <div class="row opciones">
-        <div class="six mobile-twelve centered columns">
-            <label>Condición:
-                <select>
-                    <option value="husker">Mujer gestante</option>
-                </select>
-            </label>
-        </div>
-    </div>
-    <div class="row opciones">
-        <div class="six mobile-twelve centered columns">
-            <label>Síntomas:
-                <input type="text" placeholder="Escriba sus síntomas" />
-            </label>
-        </div>
-    </div>
-
-</header>
-
-<!-- ######################## Section ######################## -->
-
-<section class="section_light">
-
-    <div class="row">
-
-        <div class="four columns">
-            <h3><span class="dropcap_red lsf-icon-dropcap" title="camera"></span> Lorem ipsum dolor</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc viverra, lacus id interdum ultrices, elit metus semper tellus, vel lacinia libero purus vitae risus.</p>
-        </div>
-
-
-        <div class="four columns">
-            <h3><span class="dropcap_black lsf-icon-dropcap" title="cloud"></span> Lorem ipsum dolor</h3>
-            <p> Vivamus tortor tellus, rutrum sit amet mollis vel, imperdiet consectetur orci. Mauris pharetra congue enim, et sagittis lectus congue ut. Cum sociis natoque penatibus.</p>
-        </div>
-
-
-        <div class="four columns">
-            <h3><span class="dropcap_black lsf-icon-dropcap" title="video"></span> Lorem ipsum dolor</h3>
-            <p>Sed vitae nisi leo. Nulla tincidunt, turpis non gravida pharetra, diam sapien posuere massa, non luctus leo mauris at sapien. Donec ut fermentum eros.</p>
-        </div>
-
-    </div>
-
-</section>
-
+{% block content %}
+    jhj
+{% endblock content %}
 
 <!-- ######################## Footer ######################## -->
 
@@ -138,9 +91,8 @@
 <!-- ######################## Scripts ######################## -->
 
 <!-- Included JS Files (Compressed) -->
-<script src="javascripts/foundation.min.js" type="text/javascript"></script>
+<script src="{{STATIC_URL}}javascripts/foundation.min.js" type="text/javascript"></script>
 <!-- Initialize JS Plugins -->
-<script src="javascripts/app.js" type="text/javascript"></script>
-
+<script src="{{STATIC_URL}}javascripts/app.js" type="text/javascript"></script>
 </body>
 </html>
