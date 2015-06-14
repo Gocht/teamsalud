@@ -126,7 +126,7 @@ class ResultView(TemplateView):
         busqueda = RegistroBusquedas()
         try:
             busqueda.busqueda_id = perfil.id
-            busqueda.distrito = self.district_id
+            busqueda.distrito = self.distrito_nombre
             busqueda.count = 1
             busqueda.save()
         except IntegrityError:
@@ -198,6 +198,7 @@ class ResultView(TemplateView):
         self.condicion_id = kwargs['condicion']
         self.signo_alerta_id = kwargs['alerta']
         self.district_id = self.kwargs['ubigeo']
+        self.distrito_nombre = kwargs['distrito_nombre']
         results = self.get_result()
         context['results'] = results
         context['location'] = json.dumps(self.get_location(results))
