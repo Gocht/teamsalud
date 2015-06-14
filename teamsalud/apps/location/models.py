@@ -42,9 +42,21 @@ class CondicionSignoAlerta(models.Model):
     )
 
 
+class RegistroBusquedas(models.Model):
+
+    busqueda = models.ForeignKey(
+        'CondicionSignoAlerta',
+        related_name='condicion_signo_alerta_set'
+    )
+    distrito = models.CharField(
+        max_length=50
+    )
+
+
 __all__ = [
     'TipoCategoria',
     'Condicion',
     'SignoAlerta',
     'CondicionSignoAlerta',
+    'RegistroBusquedas',
 ]
