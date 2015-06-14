@@ -1,3 +1,6 @@
+import requests
+import json
+
 from django.shortcuts import render
 from django.views.generic import TemplateView, View
 from models import Condicion, CondicionSignoAlerta, SignoAlerta, TipoCategoria, RegistroBusquedas
@@ -16,9 +19,29 @@ class HomeView(TemplateView):
 class ResultView(TemplateView):
     template_name = 'result.html'
 
-    def get_establecimientos(self):
-        establecimientos = []
-        establecimientos = abc
+    # Id repos
+    CALLAO_ID = 'a642ff3d-23fd-451c-a4f3-e0cc81278f13'
+    LIMA_ID = '859ec121-00c3-4c74-b275-5664e57b44d4'
+
+    def get_establecimientos(self, categoria):
+
+        url = 'http://datos.minsa.gob.pe/api/action/datastore/search.json'
+        payload = {
+            'resource_id': self.CALLAO_ID,
+        }
+
+        response = requests.get(url, params=payload)
+        response = response.json()
+
+        def _filter(renaes):
+            return [renae for renae in renaes if renae['ubigeo'] == self.kwargs['ubigeo'] and renae['categoria'] == categoria]
+
+        if response.get('success', False):
+            _list = response.get('result', {}).get('records', [])
+            establecimientos = _filter(renaes=_list)
+        else:
+            establecimientos = []
+
         return establecimientos
 
     def register_busqueda(self, perfil):
@@ -29,27 +52,27 @@ class ResultView(TemplateView):
 
     def get_result(self):
         result = []
-        perfil = CondicionSignoAlerta.objects.get(condicion_id=self.condicion_id, signo_alerta_id=self.signo_alerta_id)
-        categoria_id = perfil.tipo_categoria_id
-        self.register_busqueda(perfil)
+        # perfil = CondicionSignoAlerta.objects.get(condicion_id=self.condicion_id, signo_alerta_id=self.signo_alerta_id)
+        perfil = None
+        # categoria_id = perfil.tipo_categoria_id
+        # self.register_busqueda(perfil)
 
-        establecimientos = self.get_establecimientos()
-        results = establecimientos.objects.filter(categoria=categoria_id, ubigeo=self.district_id)
+        results = self.get_establecimientos(categoria='I-4')
 
         for result in results:
             result.append({
-                'renaes': result.codigo_unico,
-                'institucion': result.institucion,
-                'nombre_establecimiento': result.nombre,
-                'latitud': result.latitud,
-                'longitud': result.longitud,
-                'clasificaxion': result.clasificacion,
-                'departamento': result.departamento,
-                'direccion': result.direccion,
-                'provincia': result.provincia,
-                'distrito': result.distrito,
-                'telefono': result.telefono,
-                'horario': result.horario
+                'renaes': result['cdico_nico'],
+                'institucion': result['institucin'],
+                'nombre_establecimiento': result['nombre_del_establecimiento'],
+                'latitud': rresult['norte'],
+                'longitud': result['este'],
+                'clasificacion': result['clasificacin'],
+                'departamento': result['departamento'],
+                'direccion': result['direccin'],
+                'provincia': result['provincia'],
+                'distrito': result['distrito'],
+                'telefono': result['telfono'],
+                'horario': result['horario']
             })
         return result
 
