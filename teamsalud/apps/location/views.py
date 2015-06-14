@@ -8,6 +8,7 @@ from django.contrib.gis.geometry.regex import json_regex
 from django.db import IntegrityError
 from django.shortcuts import render
 from django.core.urlresolvers import reverse
+from django.template.defaultfilters import slugify
 from django.views.generic import TemplateView, View, RedirectView
 from models import Condicion, CondicionSignoAlerta, SignoAlerta, TipoCategoria, RegistroBusquedas, RenaesServicios
 from models import RenaesEspecialidades, Servicios, Especialidades
@@ -43,7 +44,7 @@ class Intermediate(View):
         signo = self.request.GET.get('signo', '')
         ubigeo = self.get_ubigeo()
 
-        _dict = {'condicion':condicion, 'alerta': signo, 'ubigeo': ubigeo}
+        _dict = {'condicion':condicion, 'alerta': signo, 'ubigeo': ubigeo, 'distrito_nombre': slugify(self.distrito_name)}
         return HttpResponse(json.dumps(_dict), content_type='application/json')
 
     def get_google_data(self):
@@ -64,7 +65,7 @@ class Intermediate(View):
         return distrito_name
 
     def get_ubigeo(self):
-        distrito_name = self.get_google_data()
+        self.distrito_name = self.get_google_data()
 
         # ubigeo = '150101'
 
@@ -73,7 +74,7 @@ class Intermediate(View):
         payload = {
             'versionCategoriaPK': '4-1',
             'nivel': 4,
-            'descripcion': distrito_name,
+            'descripcion': self.distrito_name,
             'strVersion': 2015
         }
 

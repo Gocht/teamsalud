@@ -126,7 +126,7 @@ function showPosition(position) {
     }
     
     $.get('/go/', data, function(res){
-        window.location.href = '/result/'+res.condicion+'/'+res.alerta+'/'+res.ubigeo+'/';
+        window.location.href = '/result/'+res.condicion+'/'+res.alerta+'/'+res.ubigeo+'/'+res.distrito_nombre+'/';
     });
     // window.location.href('/go/?signo='+data.signo+'&latitude='+data.latitude+'&longitude='+data.longitude);
 }
