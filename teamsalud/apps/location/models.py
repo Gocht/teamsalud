@@ -64,10 +64,54 @@ class RegistroBusquedas(models.Model):
         unique_together = [("busqueda", "distrito")]
 
 
+class Servicios(models.Model):
+    codigo = models.CharField(
+        max_length=50
+    )
+    descripcion = models.CharField(
+        max_length=300
+    )
+    def __unicode__(self):
+        return self.descripcion
+
+
+class Especialidades(models.Model):
+    codigo = models.CharField(
+        max_length=50
+    )
+    descripcion = models.CharField(
+        max_length=300
+    )
+    def __unicode__(self):
+        return self.descripcion
+
+class RenaesServicios(models.Model):
+
+    codigo_renaes = models.CharField(
+        max_length=50
+    )
+    servicio = models.ForeignKey(
+        'Servicios',
+        related_name='servicio_set'
+    )
+
+class RenaesEspecialidades(models.Model):
+    codigo_renaes = models.CharField(
+        max_length=50
+    )
+    especialidad = models.ForeignKey(
+        'Especialidades',
+        related_name='especialiad_set'
+    )
+
+
 __all__ = [
     'TipoCategoria',
     'Condicion',
     'SignoAlerta',
     'CondicionSignoAlerta',
     'RegistroBusquedas',
+    'Servicios',
+    'Especialidades',
+    'RenaesServicios'
 ]

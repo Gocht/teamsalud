@@ -76,6 +76,18 @@
                         <li>Direccin: {{ result.direccin}}</li>
                         <li>Teléfono: {{ result.telfono}}</li>
                         <li>Horario: {{ result.horario}}</li>
+                        <li>Servicios que brinda:</li>
+                            <ul>
+                                {% for servicio in result.servicios%}
+                                <li>{{servicio.servicio}}</li>
+                                {% endfor %}
+                            </ul>
+                        <li>Especialidades:</li>
+                        <ul>
+                            {% for especialidad in result.especialidades %}
+                            <li>{{ especialidad.especialidad }}</li>
+                            {% endfor %}
+                        </ul>
                     </ul>
                 </li>
                 {% endfor %}
