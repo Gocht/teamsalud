@@ -25,6 +25,9 @@ class SignoAlerta(models.Model):
         max_length=300
     )
 
+    def __unicode__(self):
+        return self.descripcion
+
 
 class CondicionSignoAlerta(models.Model):
 

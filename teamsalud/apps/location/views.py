@@ -5,7 +5,7 @@ from models import Condicion, CondicionSignoAlerta, SignoAlerta, TipoCategoria, 
 
 
 class HomeView(TemplateView):
-    template_name = 'home.html'
+    template_name = 'test.html'
 
     def get_context_data(self, **kwargs):
         context = super(HomeView, self).get_context_data(**kwargs)
@@ -60,5 +60,4 @@ class ResultView(TemplateView):
         self.district_id = 1501
         context['results'] = self.get_result()
         return context
-
 
