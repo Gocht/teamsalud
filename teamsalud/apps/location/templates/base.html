@@ -25,17 +25,7 @@
     <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
     <script type="text/javascript" src="http://code.jquery.com/ui/1.8.16/jquery-ui.min.js"></script>
 
-    <script type="text/javascript">
-$(document).ready(function() {
 
-    var aTags = ["ask","always", "all", "alright", "one", "foo", "blackberry", "tweet","force9", "westerners", "sport"];
-
-    $("#tags").autocomplete({
-        source: aTags
-    });
-
-});
-</script>
 </head>
 <script src="{{STATIC_URL}}javascripts/modernizr.foundation.js"></script>
 
@@ -104,5 +94,8 @@ $(document).ready(function() {
 <!-- ######################## Scri pts ######################## -->
 <!-- Initialize JS Plugins -->
 <script src="{{STATIC_URL}}javascripts/app.js" type="text/javascript"></script>
+{% block script_bottom %}
+
+{% endblock %}
 </body>
 </html>

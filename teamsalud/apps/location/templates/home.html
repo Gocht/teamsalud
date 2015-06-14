@@ -1,5 +1,19 @@
 {% extends 'base.html' %}
 
+{% block script_bottom %}
+<script type="text/javascript">
+$(document).ready(function() {
+
+    var aTags = ["ask","always", "all", "alright", "one", "foo", "blackberry", "tweet","force9", "westerners", "sport"];
+    var as = new bsn.AutoSuggest('tags', aTags)
+    $("#tags").autocomplete({
+        source: aTags
+    });
+
+});
+</script>
+{% endblock %}
+
 {% block content %}
 <!-- ######################## Header ######################## -->
 
@@ -25,6 +39,7 @@
             </label>
         </div>
     </div>
+    {{ signos_alerta}}
 </header>
 
 <!-- ######################## Section ######################## -->

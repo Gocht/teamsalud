@@ -1,3 +1,5 @@
+import json
+from django.contrib.gis.geometry.regex import json_regex
 from django.shortcuts import render
 from django.views.generic import TemplateView, View
 from models import Condicion, CondicionSignoAlerta, SignoAlerta, TipoCategoria, RegistroBusquedas
@@ -7,9 +9,24 @@ from models import Condicion, CondicionSignoAlerta, SignoAlerta, TipoCategoria, 
 class HomeView(TemplateView):
     template_name = 'home.html'
 
+    def get_signo_alerta(self):
+        data = []
+        signos = SignoAlerta.objects.all()
+
+        for signo in signos:
+            data.append({
+            'descripcion': signo.descripcion
+            })
+        return data
+
+    def get_signo_alerta2(self):
+        data = ['s','sbvhjdsbvdjhv', 'sbvhjdvdsvdv']
+        return data
+
     def get_context_data(self, **kwargs):
         context = super(HomeView, self).get_context_data(**kwargs)
         context['condiciones'] = Condicion.objects.all()
+        context['signos_alerta'] = json.dumps(self.get_signo_alerta())
         return context
 
 
