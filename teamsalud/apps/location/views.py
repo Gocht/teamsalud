@@ -51,7 +51,6 @@ class ResultView(TemplateView):
 
         response = requests.get(url, params=payload)
         response = response.json()
-
         def _filter(renaes):
             return [renae for renae in renaes if renae['ubigeo'] == self.kwargs['ubigeo'] and renae['categoria'] == categoria]
 
@@ -65,25 +64,25 @@ class ResultView(TemplateView):
 
     def register_busqueda(self, perfil):
         busqueda = RegistroBusquedas()
-        busqueda.busqueda = perfil
+        busqueda.busqueda_id = perfil.id
         busqueda.distrito = self.district_id
         busqueda.save()
 
     def get_result(self):
-        result = []
-        # perfil = CondicionSignoAlerta.objects.get(condicion_id=self.condicion_id, signo_alerta_id=self.signo_alerta_id)
-        perfil = None
-        # categoria_id = perfil.tipo_categoria_id
-        # self.register_busqueda(perfil)
-
-        results = self.get_establecimientos(categoria='I-4')
-
+        data = []
+        perfil = CondicionSignoAlerta.objects.get(condicion_id=self.condicion_id, signo_alerta_id=self.signo_alerta_id)
+        categoria = perfil.tipo_categoria.codigo
+        self.register_busqueda(perfil)
+        pk=0
+        results = self.get_establecimientos(categoria=categoria)
         for result in results:
-            result.append({
-                'renaes': result['cdico_nico'],
+            pk=pk+1
+            data.append({
+                'pk':pk,
+                'renaes': result['cdigo_nico'],
                 'institucion': result['institucin'],
                 'nombre_establecimiento': result['nombre_del_establecimiento'],
-                'latitud': rresult['norte'],
+                'latitud': result['norte'],
                 'longitud': result['este'],
                 'clasificacion': result['clasificacin'],
                 'departamento': result['departamento'],
@@ -93,13 +92,13 @@ class ResultView(TemplateView):
                 'telefono': result['telfono'],
                 'horario': result['horario']
             })
-        return result
+        return data
 
     def get_context_data(self, **kwargs):
         context = super(ResultView, self).get_context_data(**kwargs)
         self.condicion_id = 1
         self.signo_alerta_id = 1
-        self.district_id = 1501
+        self.district_id = 70101
         context['results'] = self.get_result()
         return context
 
