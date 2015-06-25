@@ -57,7 +57,8 @@ class Intermediate(View):
         response = response.json()
 
         if response.get('status', '') == 'OK':
-            distrito_name = response.get('results')[0].get('address_components')[2].get('long_name')
+            # distrito_name = response.get('results')[0].get('address_components')[2].get('long_name')
+            distrito_name = response.get('results')[3].get('address_components')[0].get('long_name')
         else:
             distrito_name = ''
 
