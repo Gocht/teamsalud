@@ -188,8 +188,10 @@ class ResultView(TemplateView):
         data = []
         for result in results:
             data.append({
-                'lat':result.get('latitud'),
-                'lng':result.get('longitud')
+                'lat': result.get('latitud'),
+                'lng': result.get('longitud'),
+                'nombre_establecimiento': result.get('nombre_establecimiento'),
+                'horario': result.get('horario')
             })
         return data
 

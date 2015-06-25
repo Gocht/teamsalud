@@ -23,8 +23,8 @@
                 lng: renaes[i].lng,
                 // title: 'Lima',
                 infoWindow: {
-                  content: '<p>HTML Content</p>'
-                },
+                  content: '<p>' + renaes[i].nombre_establecimiento + '</p><p>' + renaes[i].horario + '</p>'
+                }
             });
         }
 
@@ -37,6 +37,7 @@
     height: 400px;
     }
 </style>
+
 {% endblock %}
 
 {% block content %}
