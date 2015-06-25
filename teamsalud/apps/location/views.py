@@ -58,7 +58,7 @@ class Intermediate(View):
         response = response.json()
 
         if response.get('status', '') == 'OK':
-            distrito_name = response.get('results')[0].get('address_components')[2].get('long_name')
+            distrito_name = response.get('results')[3].get('address_components')[0].get('long_name')
         else:
             distrito_name = ''
 
@@ -130,8 +130,8 @@ class ResultView(TemplateView):
             busqueda.count = 1
             busqueda.save()
         except IntegrityError:
-            registro = RegistroBusquedas.objects.get(busqueda=perfil.id, distrito=self.district_id)
-            registro.count = registro.count +1
+            registro, created = RegistroBusquedas.objects.get_or_create(busqueda=perfil, distrito=self.district_id)
+            registro.count = registro.count + 1
             registro.save()
         return True
 

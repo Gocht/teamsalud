@@ -58,7 +58,7 @@ class RegistroBusquedas(models.Model):
     distrito = models.CharField(
         max_length=50
     )
-    count = models.IntegerField()
+    count = models.IntegerField(null=True, blank=True, default=0)
 
     class Meta:
         unique_together = [("busqueda", "distrito")]
