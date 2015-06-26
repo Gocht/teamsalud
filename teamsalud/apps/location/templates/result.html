@@ -11,7 +11,7 @@
 
         map = new GMaps({
           div: '#map',
-          zoom: 13,
+          zoom: 10,
           lat: -12.043333,
           lng: -77.028333,
         });
@@ -21,9 +21,11 @@
             map.addMarker({
                 lat: renaes[i].lat,
                 lng: renaes[i].lng,
+                // icon  : 'http://gmaps-samples.googlecode.com/svn/trunk/markers/red/blank.png',
                 // title: 'Lima',
+                icon: '/static/images/iconos/i-4.png',
                 infoWindow: {
-                  content: '<p>' + renaes[i].nombre_establecimiento + '</p><p>' + renaes[i].horario + '</p>'
+                  content: "<p style='color:red;'>" + renaes[i].nombre_establecimiento + '</p><p>' + renaes[i].horario + '</p>'
                 }
             });
         }
