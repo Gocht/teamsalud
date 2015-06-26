@@ -12,6 +12,7 @@ from django.template.defaultfilters import slugify
 from django.views.generic import TemplateView, View, RedirectView
 from models import Condicion, CondicionSignoAlerta, SignoAlerta, TipoCategoria, RegistroBusquedas, RenaesServicios
 from models import RenaesEspecialidades, Servicios, Especialidades
+from models import Establecimientos
 # Create your views here.
 
 
@@ -124,6 +125,25 @@ class ResultView(TemplateView):
             establecimientos = _filter(renaes=_list)
         else:
             establecimientos = []
+
+        for establecimiento in Establecimientos.objects.all():
+            establecimientos.append(
+                {
+                    'cdigo_nico': establecimiento.codigo,
+                    'institucin': establecimiento.get_institucion(code=establecimiento.tipo_institucion),
+                    'nombre_del_establecimiento': establecimiento.nombre,
+                    'norte': establecimiento.latitud,
+                    'este': establecimiento.longitud,
+                    'clasificacin': establecimiento.get_institucion(establecimiento.clasificacion),
+                    'categoria': establecimiento.get_categoria(establecimiento.categoria).lower(),
+                    'departamento': '',
+                    'provincia': '',
+                    'distrito': '',
+                    'direccin': establecimiento.direccion,
+                    'telfono': establecimiento.telefono,
+                    'horario': establecimiento.horario
+                }
+            )
 
         return establecimientos
 

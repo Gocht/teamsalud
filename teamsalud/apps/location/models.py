@@ -196,6 +196,30 @@ class Establecimientos(models.Model):
         max_length=50
     )
 
+    def get_institucion(self, code=None):
+        if code and code==1:
+            return 'MINSA'
+        elif code and code==2:
+            return 'PUESTOS DE SALUD O POSTAS DE SALUD'
+        elif code and code==3:
+            return 'PRIVADO'
+        elif code and code==4:
+            return 'GOBIERNO REGIONAL'
+
+    def get_clasificacion(self, code):
+        if code == 0:
+            return 'CENTROS DE SALUD CON CAMAS DE INTERNAMIENTO'
+        elif code == 1:
+            return 'CENTROS DE SALUD O CENTROS MEDICOS'
+
+    def get_categoria(self, code):
+        if code == 1:
+            return 'I-3'
+        elif code == 2:
+            return 'I-4',
+        elif code == 3:
+            return 'III-1'
+
     def __unicode__(self):
         return self.nombre
 
