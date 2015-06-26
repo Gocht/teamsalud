@@ -85,6 +85,7 @@ class Especialidades(models.Model):
     def __unicode__(self):
         return self.descripcion
 
+
 class RenaesServicios(models.Model):
 
     codigo_renaes = models.CharField(
@@ -94,6 +95,7 @@ class RenaesServicios(models.Model):
         'Servicios',
         related_name='servicio_set'
     )
+
 
 class RenaesEspecialidades(models.Model):
     codigo_renaes = models.CharField(
@@ -105,6 +107,83 @@ class RenaesEspecialidades(models.Model):
     )
 
 
+class Establecimientos(models.Model):
+    TIPO_UNO = 1
+    TIPO_DOS = 0
+
+    CAT_UNO = 1
+    CAT_DOS = 2
+    CAT_TRES = 3
+
+    DISTRITO_UNO = 150130
+    DISTRITO_DOS = 150114
+    DISTRITO_TRES = 150116
+    DISTRITO_CUATRO = 150115
+    DISTRITO_CINCO = 150134
+    DISTRITO_SEIS = 150140
+    DISTRITO_SIETE = 150141
+    DISTRITO_OCHO = 150122
+    DISTRITO_NUEVE = 150131
+
+    CHOICE_CLASIFICACION = (
+        (TIPO_UNO, 'CENTROS DE SALUD O CENTROS MEDICOS'),
+        (TIPO_DOS, 'CENTROS DE SALUD CON CAMAS DE INTERNAMIENTO')
+    )
+    CHOICE_CATEGORIA = (
+        (CAT_UNO, 'I-3'),
+        (CAT_DOS, 'I-4'),
+        (CAT_TRES, 'III-1')
+    )
+    CHOICE_DISTRITO = (
+        (DISTRITO_UNO, 'San Borja'),
+        (DISTRITO_DOS, 'La Molina'),
+        (DISTRITO_TRES, 'Lince'),
+        (DISTRITO_CUATRO, 'La Victoria'),
+        (DISTRITO_CINCO, 'San Luis'),
+        (DISTRITO_SEIS, 'Santiago de Surco'),
+        (DISTRITO_SIETE, 'Surquillo'),
+        (DISTRITO_OCHO, 'Miraflores'),
+        (DISTRITO_NUEVE, 'San Isidro')
+    )
+
+    codigo =models.CharField(
+        max_length=50
+    )
+    nombre = models.CharField(
+        max_length=200
+    )
+    clasificacion = models.SmallIntegerField(
+        choices=CHOICE_CLASIFICACION,
+        default=TIPO_UNO
+    )
+    ubigeo = models.SmallIntegerField(
+        choices=CHOICE_DISTRITO,
+        default=DISTRITO_UNO
+    )
+    direccion = models.CharField(
+        max_length=300
+    )
+    categoria = models.SmallIntegerField(
+        choices=CHOICE_CATEGORIA,
+        default=CAT_UNO
+    )
+    telefono = models.CharField(
+        max_length=15
+    )
+    horario = models.CharField(
+        max_length=100
+    )
+    latitud = models.CharField(
+        max_length=50
+    )
+    longitud = models.CharField(
+        max_length=50
+    )
+
+    def __unicode__(self):
+        return self.nombre
+
+
 __all__ = [
     'TipoCategoria',
     'Condicion',
@@ -113,5 +192,6 @@ __all__ = [
     'RegistroBusquedas',
     'Servicios',
     'Especialidades',
-    'RenaesServicios'
+    'RenaesServicios',
+    'Establecimientos'
 ]
