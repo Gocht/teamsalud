@@ -1,6 +1,6 @@
 from django.contrib import admin
 from .models import Condicion, SignoAlerta, CondicionSignoAlerta, TipoCategoria, RegistroBusquedas
-from .models import RenaesServicios, RenaesEspecialidades, Servicios, Especialidades
+from .models import RenaesServicios, RenaesEspecialidades, Servicios, Especialidades, Establecimientos
 
 # Register your models here.
 
@@ -34,6 +34,8 @@ class RenaesServiciosAdmin(admin.ModelAdmin):
 class RenaesEspecialidadesAdmin(admin.ModelAdmin):
     pass
 
+class EstablecimientosAdmin(admin.ModelAdmin):
+    pass
 
 admin.site.register(Condicion, CondicionAdmin)
 admin.site.register(SignoAlerta, SignoAlertaAdmin)
@@ -44,4 +46,5 @@ admin.site.register(RenaesServicios, RenaesServiciosAdmin)
 admin.site.register(RenaesEspecialidades, RenaesEspecialidadesAdmin)
 admin.site.register(Servicios, ServiciosAdmin)
 admin.site.register(Especialidades, EspecialidadesAdmin)
+admin.site.register(Establecimientos, EstablecimientosAdmin)
 
