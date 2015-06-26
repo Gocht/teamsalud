@@ -63,19 +63,20 @@
 <section class="resultado">
 
     <div class="row">
+        <div class="eight columns">
 
         {% if results %}
         <h1>Información de los centros de salud:</h1>
         {% for result in results %}
-        <article class="four columns featured_post">
+        <article class="six columns featured_post centrosalud">
 
             <h3>{{ result.nombre_establecimiento }}</h3>
-            <p>{{ result.direccion}} </p>
+            <p><b>Dirección:</b> {{ result.direccion}} </p>
             <p>{{ result.departamento}} - {{ result.provincia}} - {{ result.distrito}}</p>
-            <p>{{ result.institucion}}</p>
-            <p>Clasificacion: {{ result.clasificacion}}</p>
-            <p>Teléfono: {{ result.telfono}}</p>
-            <p>Horario: {{ result.horario}}</p>
+            <p><b>Tipo Institución:</b> {{ result.institucion}}</p>
+            <p><b>Clasificacion:</b> {{ result.clasificacion}}</p>
+            <p><b>Teléfono:</b> {{ result.telefono}}</p>
+            <p><b>Horario:</b> {{ result.horario}}</p>
 
             {% if result.servicios %}
             <ul>Servicios que brinda:
@@ -97,6 +98,46 @@
         {% else %}
         <p>No hemos encontrado centros de salud cerca a su ubicación</p>
         {% endif %}
+        </div>
+        <div class="four columns centros">
+
+            <h3>Descripción de los centros:</h3>
+            <div class="twelve columns">
+                <h5><img src="{{ STATIC_URL }}images/i-3.png"> Categoría I-3</h5>
+                <p>Centro de salud, centro médico especializado, policlínico.</p>
+
+                <p><b>Actividades:</b></p>
+
+                <ul><li>Atención de urgencias y emergencias.</li>
+                    <li>Referencia y contrareferencia.</li>
+                    <li>Atención de parto inminente.</li></ul>
+            </div>
+
+            <div class="twelve columns">
+                <h5><img src="{{ STATIC_URL }}images/i-4.png"> Categoría I-4</h5>
+                <p>Centro de salud con camas de internamiento, centro médico con camas de internamiento.</p>
+
+                <p><b>Actividades:</b></p>
+
+                <ul><li>Atención de urgencias y emergencias.</li>
+                    <li>Referencia y contrareferencia.</li>
+                    <li>Atención de la gestante en el período de parto.</li>
+                    <li>Atención del recién nacidp en el área de observación.</li></ul>
+            </div>
+
+            <div class="twelve columns">
+                <h5><img src="{{ STATIC_URL }}images/iii-1.png"> Categoría III-1</h5>
+                <p>Hospitales de atención general, clínicas de atención general.</p>
+
+                <p><b>Actividades:</b></p>
+
+                <ul><li>Emergencias.</li>
+                    <li>Hospitalización.</li>
+                    <li>Centro obstétrico.</li></ul>
+            </div>
+
+        </div>
+
     </div>
 </section>
 
