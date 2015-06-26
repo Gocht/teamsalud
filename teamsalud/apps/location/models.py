@@ -216,7 +216,7 @@ class Establecimientos(models.Model):
         if code == 1:
             return 'I-3'
         elif code == 2:
-            return 'I-4',
+            return 'I-4'
         elif code == 3:
             return 'III-1'
 

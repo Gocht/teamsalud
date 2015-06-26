@@ -87,8 +87,8 @@ class Intermediate(View):
                     ubigeo = ubigeo[1:]
             except IndexError:
                 # This should be improved
-                ubigeo = '70101'
-                self.distrito_name = 'lima'  
+                ubigeo = '150130'
+                self.distrito_name = 'san-borja'
         else:
             ubigeo = ''
 
@@ -135,7 +135,7 @@ class ResultView(TemplateView):
                     'norte': establecimiento.latitud,
                     'este': establecimiento.longitud,
                     'clasificacin': establecimiento.get_institucion(establecimiento.clasificacion),
-                    'categoria': establecimiento.get_categoria(establecimiento.categoria).lower(),
+                    'categoria': establecimiento.get_categoria(establecimiento.categoria),
                     'departamento': '',
                     'provincia': '',
                     'distrito': '',
@@ -218,7 +218,7 @@ class ResultView(TemplateView):
                 'lng': result.get('longitud'),
                 'nombre_establecimiento': result.get('nombre_establecimiento'),
                 'horario': result.get('horario'),
-                'categoria': result.get('categoria', '').lower()
+                'categoria': str(result.get('categoria')).lower()
             })
         return data
 
