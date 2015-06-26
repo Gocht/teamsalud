@@ -178,6 +178,7 @@ class ResultView(TemplateView):
                 'latitud': result['norte'],
                 'longitud': result['este'],
                 'clasificacion': result['clasificacin'],
+                'categoria': result['categoria'],
                 'departamento': result['departamento'],
                 'direccion': result['direccin'],
                 'provincia': result['provincia'],
@@ -196,7 +197,8 @@ class ResultView(TemplateView):
                 'lat': result.get('latitud'),
                 'lng': result.get('longitud'),
                 'nombre_establecimiento': result.get('nombre_establecimiento'),
-                'horario': result.get('horario')
+                'horario': result.get('horario'),
+                'categoria': result.get('categoria', '').lower()
             })
         return data
 
