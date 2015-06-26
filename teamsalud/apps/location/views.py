@@ -53,7 +53,6 @@ class Intermediate(View):
             'latlng': '%s,%s' % (self.request.GET.get('latitude', ''), self.request.GET.get('longitude', '')),
             'sensor': False
         }
-
         response = requests.get(url, params=payload)
         response = response.json()
 
@@ -79,10 +78,12 @@ class Intermediate(View):
         }
 
         response = requests.get(url, params=payload)
-
         if response.status_code == 200:
             soup = bs(response.content)
-            ubigeo = soup.find('body').find_all('table')[1].find_all('tr')[0].find_all('td')[3].text.split(' ')[0].strip()
+            try:  # Avoid index error, no match between codes.
+                ubigeo = soup.find('body').find_all('table')[1].find_all('tr')[0].find_all('td')[3].text.split(' ')[0].strip()
+            except IndexError:
+                ubigeo = '70101'  
         else:
             ubigeo = ''
 
