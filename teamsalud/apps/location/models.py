@@ -125,6 +125,11 @@ class Establecimientos(models.Model):
     DISTRITO_OCHO = 150122
     DISTRITO_NUEVE = 150131
 
+    INSTITUCION_UNO = 1
+    INSTITUCION_DOS = 2
+    INSTITUCION_TRES = 3
+    INSTITUCION_CUATRO = 4
+
     CHOICE_CLASIFICACION = (
         (TIPO_UNO, 'CENTROS DE SALUD O CENTROS MEDICOS'),
         (TIPO_DOS, 'CENTROS DE SALUD CON CAMAS DE INTERNAMIENTO')
@@ -144,6 +149,13 @@ class Establecimientos(models.Model):
         (DISTRITO_SIETE, 'Surquillo'),
         (DISTRITO_OCHO, 'Miraflores'),
         (DISTRITO_NUEVE, 'San Isidro')
+    )
+
+    CHOICE_INSTITUCION = (
+        (INSTITUCION_UNO, 'MINSA'),
+        (INSTITUCION_DOS, 'PUESTOS DE SALUD O POSTAS DE SALUD'),
+        (INSTITUCION_TRES, 'PRIVADO'),
+        (INSTITUCION_CUATRO, 'GOBIERNO REGIONAL')
     )
 
     codigo =models.CharField(
@@ -166,6 +178,10 @@ class Establecimientos(models.Model):
     categoria = models.SmallIntegerField(
         choices=CHOICE_CATEGORIA,
         default=CAT_UNO
+    )
+    tipo_institucion = models.SmallIntegerField(
+        choices=CHOICE_INSTITUCION,
+        default=INSTITUCION_UNO
     )
     telefono = models.CharField(
         max_length=15

@@ -30,3 +30,23 @@
 .acudir {
 	color: #cc3300;
 }
+.resultado h1 {
+	color: #cc0000;
+}
+.centros > div  {
+	border: 1px solid #666666;
+	border-radius: 3px;
+	background-color: #FFFFFF;
+	margin-bottom: 10px;
+}
+.centros h3 {
+	color: #cc0000;
+	font-weight: 600;
+}
+.centros ul {
+	padding-left: 15px;
+}
+
+.centrosalud {
+    height: 400px;
+}
