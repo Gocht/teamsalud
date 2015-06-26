@@ -50,3 +50,8 @@
 .centrosalud {
     height: 400px;
 }
+
+.atiendealerta img{
+	display: block;
+	margin: 0 auto;
+}
