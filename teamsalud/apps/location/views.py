@@ -82,8 +82,12 @@ class Intermediate(View):
             soup = bs(response.content)
             try:  # Avoid index error, no match between codes.
                 ubigeo = soup.find('body').find_all('table')[1].find_all('tr')[0].find_all('td')[3].text.split(' ')[0].strip()
+                if ubigeo and ubigeo[0] == '0'
+                    ubigeo = ubigeo[1:]
             except IndexError:
-                ubigeo = '70101'  
+                # This should be improved
+                ubigeo = '70101'
+                self.distrito_name = 'lima'  
         else:
             ubigeo = ''
 
